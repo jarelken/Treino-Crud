@@ -1,2 +1,2 @@
 # Treino Crud
- Crud com java
+ Crud simples com java, cliente com dois atributos.
