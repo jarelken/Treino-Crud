@@ -14,5 +14,14 @@
             <input name="email" type="text" required/><br><br>
             <input type="submit" value="ENVIAR"/>
         </form>
+        <br>
+        <a href="consulta.jsp"><button>CONSULTAR</button></a>
+        <br>
+        <br>
+        <a href="deletar.jsp"><button>DELETAR</button></a>
+        <br>
+        <br>
+        
+        <a href="update.jsp"><button>ATUALIZAR</button></a>
     </body>
 </html>
