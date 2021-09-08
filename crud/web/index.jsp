@@ -21,7 +21,6 @@
         <a href="deletar.jsp"><button>DELETAR</button></a>
         <br>
         <br>
-        
         <a href="update.jsp"><button>ATUALIZAR</button></a>
     </body>
 </html>
