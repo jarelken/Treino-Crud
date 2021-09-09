@@ -24,8 +24,13 @@
                     out.print("<td>"+cld.getAllClientes().get(i).getId()+"</td>");
                     out.print("<td>"+cld.getAllClientes().get(i).getNome()+"</td>");
                     out.print("<td>"+cld.getAllClientes().get(i).getEmail()+"</td>");
-                    out.print("<td>CLIQUE</td>");
-                    out.print("<td>CLIQUE</td>");
+                    out.print("<td><a href='update.jsp?id="
+                            + cld.getAllClientes().get(i).getId()
+                            + "&nome="+cld.getAllClientes().get(i).getNome()
+                            + "&email="+cld.getAllClientes().get(i).getEmail()+"'>CLIQUE</a></td>");
+                    out.print("<td><a href='delmet.jsp?id="
+                            + cld.getAllClientes().get(i).getId()
+                            +"'>CLIQUE</a></td>");
                     
                 out.print("</tr>");
                 i++;

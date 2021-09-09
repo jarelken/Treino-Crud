@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import MODEL.Cliente;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.sql.Statement;
 import java.util.List;
 
 
@@ -11,13 +12,16 @@ public class DAOCliente {
     
     private Connection conn;
     private PreparedStatement stmt;
+    private Statement st;
+    private ResultSet rs;
+    
     
     public DAOCliente(){
         conn = new Conexao().getConexao();
     }
     
     public void inserirCliente(Cliente cliente){
-        String sql = "INSERT INTO tb_clientes(nome, email) " + "VALUES(?,?)";
+        String sql = "INSERT INTO tb_clientes(nome, email) VALUES(?,?)";
         try{
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, cliente.getNome());
@@ -30,24 +34,23 @@ public class DAOCliente {
     }
     
     public void deletarCliente(int i){
-        String sql = "DELETE FROM tb_clientes where id = ?";
+        String sql = "DELETE FROM tb_clientes where id =" + i;
         try{
-            stmt = conn.prepareStatement(sql);
-            stmt.setString(1, Integer.toString(i));
-            stmt.execute();
-            stmt.close();
+            st = conn.createStatement();
+            st.execute(sql);
+            st.close();
         }catch(Exception erro){
             throw new RuntimeException("Erro deleção: ",erro);
         }
     }
     
-    public void updateCliente(String id, String nome, String email){
+    public void updateCliente(Cliente cli){
         String sql = "UPDATE tb_clientes set nome = ?, email = ? where id = ?";
         try{
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, nome);
-            stmt.setString(2, email);
-            stmt.setString(3, id);
+            stmt.setString(1, cli.getNome());
+            stmt.setString(2, cli.getEmail());
+            stmt.setInt(3, cli.getId());
             stmt.execute();
             stmt.close();
         }catch(Exception erro){
@@ -56,10 +59,11 @@ public class DAOCliente {
     }
     
     public List<Cliente> getAllClientes(){
-        List<Cliente> list = new ArrayList<Cliente>();
+        ArrayList<Cliente> list = new ArrayList<Cliente>();
+        String sql = "SELECT * FROM tb_clientes";
         try{
-            stmt = conn.prepareStatement("SELECT * FROM tb_clientes");
-            ResultSet rs = stmt.executeQuery();
+            st = conn.createStatement();
+            rs = st.executeQuery(sql);
             
             while(rs.next()){
                 Cliente cliente = new Cliente();
@@ -68,8 +72,7 @@ public class DAOCliente {
                 cliente.setEmail(rs.getString("email"));
                 list.add(cliente);
             }
-            stmt.close();
-                    
+            st.close();
         }catch(Exception erro){
             throw new RuntimeException("Erro consulta: ", erro);
         }

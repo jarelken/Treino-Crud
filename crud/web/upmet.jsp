@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="DAO.DAOCliente" %>
+<%@page import="MODEL.Cliente" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,16 +11,14 @@
     <body>
         <%
             try{
+                Cliente cli = new Cliente();
                 DAOCliente cld = new DAOCliente();
-                String nome = request.getParameter("nome");
-                String email = request.getParameter("email");
-                String id = request.getParameter("id");
-                if(id.equals("")||id.contains("ID")){
-                    response.sendRedirect("update.jsp");
-                }else{
-                    cld.updateCliente(id, nome, email);
-                    response.sendRedirect("index.jsp");
-                }
+                cli.setNome(request.getParameter("nome")) ;
+                cli.setEmail(request.getParameter("email"));
+                cli.setId(Integer.parseInt(request.getParameter("id")));
+                cld.updateCliente(cli);
+                response.sendRedirect("consulta.jsp");
+                
             }catch(Exception erro){
                 throw new RuntimeException("Erro atualização: ", erro);
             }

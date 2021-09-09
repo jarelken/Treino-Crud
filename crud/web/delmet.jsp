@@ -11,13 +11,8 @@
             try{
                 DAOCliente cld = new DAOCliente();
                 String id = request.getParameter("id");
-                if(id.equals(null)){
-                    response.sendRedirect("deletar.jsp");
-                }else{
-                    cld.deletarCliente(Integer.parseInt(id));
-                    response.sendRedirect("deletar.jsp");
-                }
-                
+                cld.deletarCliente(Integer.parseInt(id));
+                response.sendRedirect("consulta.jsp");  
             }catch(Exception erro){
                 throw new RuntimeException("Erro deletar: ", erro);
             }
